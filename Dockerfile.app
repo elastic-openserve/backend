@@ -24,4 +24,4 @@ EXPOSE 6378
 
 # Run app.py when the container launches with gunicorn
 # CMD ["gunicorn", "-w", "2", "--timeout", "120", "-b", "0.0.0.0:8080", "wsgi:app"]
-CMD ["python", "wsgi.py"]
+CMD ["python", "wsgi.py"] 
