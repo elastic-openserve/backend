@@ -1,4 +1,3 @@
-# backend
 
 ## How to run locally 
 
@@ -15,6 +14,22 @@
    ```bash
    ngrok http 7378
    ```
+
+##How to use the Openserv platform to integrate these agents:
+1. First of all we go the the Add Agent section and we fill in the form. For agent endpoint either use your local setup (as described above) or you can use the web app we have deployed for demo. Repeat the same for all the agents with the agent task description given below.
+![Screenshot 2025-03-17 at 2 06 03 PM](https://github.com/user-attachments/assets/b71117f5-6c0a-41e9-acad-2c59cf69aec3)
+2. Then go to each agent and click on generate secret key option. Copy the secret key and set it in the .env file as mentioned in the steps above. Repeat this for all the agents.
+![Screenshot 2025-03-17 at 2 06 30 PM](https://github.com/user-attachments/assets/98d883ae-be64-4261-a28c-97adaf7cd046)
+3. Then go to projects and create new project with the project description given below.
+![Screenshot 2025-03-17 at 2 07 20 PM](https://github.com/user-attachments/assets/c4d05cfb-6dde-4a8c-843d-bef2d131e2c8)
+4. In the select team, add all the agents you made in previous step.
+![Screenshot 2025-03-17 at 2 07 33 PM](https://github.com/user-attachments/assets/3262323a-f94c-45a4-b2fd-8c6f21be5042)
+5. Once project is created, approve the plan to make the project run.
+![Screenshot 2025-03-17 at 2 08 00 PM](https://github.com/user-attachments/assets/a745b465-5cbd-45e0-91a2-a0fc5746bfcb)
+6. Once it finishes running, you must have the output in your email!
+   ![Screenshot 2025-03-17 at 2 10 16 PM](https://github.com/user-attachments/assets/740f8723-e1de-4b5e-ac83-51b19f8fde29)![Screenshot 2025-03-17 at 2 10 42 PM](https://github.com/user-attachments/assets/e1ab8e62-12fe-4db4-b6bd-765fbdac2766)![Screenshot 2025-03-17 at 2 10 57 PM](https://github.com/user-attachments/assets/170f74c6-4860-460c-90fc-ccfa7f28d0e2)
+
+
 
 ## This is a sample project description
 
