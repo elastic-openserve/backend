@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install -y \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN apt install ffmpeg
+RUN apt update && apt install -y ffmpeg
+
 
 # Make port 8080 available to the world outside this container
 EXPOSE 6378
