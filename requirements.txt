@@ -10,3 +10,11 @@ google-auth-httplib2
 google-api-python-client
 google-cloud-texttospeech
 colorlog
+
+aiohttp
+certifi
+vertexai
+uvicorn
+fastapi
+pytrends
+pillow

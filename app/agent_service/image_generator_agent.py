@@ -3,6 +3,8 @@ from vertexai.preview.vision_models import ImageGenerationModel
 import random
 import os
 import time
+from dotenv import load_dotenv
+load_dotenv()
 
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/debasmitroy/Desktop/programming/gemini-agent-assist/key.json"

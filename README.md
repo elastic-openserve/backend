@@ -7,6 +7,7 @@
 
 2. **Install dependencies and Run**  
    ```bash
+   brew install ffmpeg
    pip install -r requirements.txt
    python3 wsgi.py
    ```
