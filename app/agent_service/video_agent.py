@@ -25,65 +25,69 @@ def generate_video(base_number):
 
     for section in ['top', 'bottom']:
         for idx, item in enumerate(data[section]):
-            # Build common prefix
-            prefix = f"{item['month']}_{item['age_group']}_{item['region']}_{section}_{idx}"
-            
-            image_path = f"{base_path}/{section}/{prefix}.png"
-            audio_path = f"{base_path}/{section}/{prefix}.wav"
-
-            # Open image & create canvas
-            img = Image.open(image_path).convert('RGB')
-            draw = ImageDraw.Draw(img)
-            w, h = img.size
-
-            # Fonts
             try:
-                font_title = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 60)
-                font_body = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 30)
-                font_hashtags = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 40)
-            except:
-                font_title = ImageFont.load_default()
-                font_body = ImageFont.load_default()
-                font_hashtags = ImageFont.load_default()
+                # Build common prefix
+                prefix = f"{item['month']}_{item['age_group']}_{item['region']}_{section}_{idx}"
+                
+                image_path = f"{base_path}/{section}/{prefix}.png"
+                audio_path = f"{base_path}/{section}/{prefix}.wav"
 
-            # Draw Title
-            draw.text((50, 50), item['title'], font=font_title, fill='white')
+                # Open image & create canvas
+                img = Image.open(image_path).convert('RGB')
+                draw = ImageDraw.Draw(img)
+                w, h = img.size
 
-            # Draw Body
-            draw.text((50, 200), item['body'], font=font_body, fill='white')
+                # Fonts
+                try:
+                    font_title = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 60)
+                    font_body = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 30)
+                    font_hashtags = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 40)
+                except:
+                    font_title = ImageFont.load_default()
+                    font_body = ImageFont.load_default()
+                    font_hashtags = ImageFont.load_default()
 
-            # Draw Hashtags (blue)
-            hashtags_text = " ".join(item['hashtags'])
-            draw.text((50, h - 120), hashtags_text, font=font_hashtags, fill='blue')
+                # Draw Title
+                draw.text((50, 50), item['title'], font=font_title, fill='white')
 
-            # Save edited image
-            edited_image_path = f"{base_path}/{section}/{prefix}_edited.png"
-            img.save(edited_image_path)
+                # Draw Body
+                draw.text((50, 200), item['body'], font=font_body, fill='white')
 
-            # Get audio duration with ffprobe
-            duration_sec = get_audio_duration(audio_path)
+                # Draw Hashtags (blue)
+                hashtags_text = " ".join(item['hashtags'])
+                draw.text((50, h - 120), hashtags_text, font=font_hashtags, fill='blue')
 
-            # Output video name using the SAME prefix
-            output_video = f"{base_path}/{section}/{prefix}.mp4"
+                # Save edited image
+                edited_image_path = f"{base_path}/{section}/{prefix}_edited.png"
+                img.save(edited_image_path)
 
-            # ffmpeg command to create video
-            cmd = [
-                "ffmpeg",
-                "-y",
-                "-loop", "1",
-                "-i", edited_image_path,
-                "-i", audio_path,
-                "-c:v", "libx264",
-                "-tune", "stillimage",
-                "-c:a", "aac",
-                "-b:a", "192k",
-                "-pix_fmt", "yuv420p",
-                "-shortest",
-                "-t", str(duration_sec),
-                output_video
-            ]
-            subprocess.run(cmd, check=True)
-            print(f"✅ Video created: {output_video}")
+                # Get audio duration with ffprobe
+                duration_sec = get_audio_duration(audio_path)
+
+                # Output video name using the SAME prefix
+                output_video = f"{base_path}/{section}/{prefix}.mp4"
+
+                # ffmpeg command to create video
+                cmd = [
+                    "ffmpeg",
+                    "-y",
+                    "-loop", "1",
+                    "-i", edited_image_path,
+                    "-i", audio_path,
+                    "-c:v", "libx264",
+                    "-tune", "stillimage",
+                    "-c:a", "aac",
+                    "-b:a", "192k",
+                    "-pix_fmt", "yuv420p",
+                    "-shortest",
+                    "-t", str(duration_sec),
+                    output_video
+                ]
+                subprocess.run(cmd, check=True)
+                print(f"✅ Video created: {output_video}")
+            except Exception as e:
+                print(f"❌ Error creating video: {e}")
+                continue
 
     print("🎉 All videos created successfully!")
 
