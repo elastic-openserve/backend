@@ -68,18 +68,25 @@ jobs:
 
       - name: Deploy to Cloud Run
         run: |
+          # Get the .env content from Secret Manager
+          ENV_CONTENT=$(gcloud secrets versions access latest --secret=ENV)
+      
+          # Format it into individual --set-env-vars arguments
+          ENV_VARS=$(echo "$ENV_CONTENT" | sed ':a;N;$!ba;s/\n/,/g')
+      
           gcloud run deploy ${{ inputs.CLOUD_RUN_SERVICE }} \
             --image ${{ inputs.GAR_LOCATION }}/${{ inputs.IMAGE_NAME }}:latest \
             --region ${{ inputs.CLOUD_RUN_REGION }} \
             --platform managed \
             --allow-unauthenticated \
             --service-account=${{ inputs.SERVICE_ACCOUNT }} \
-            --memory ${{ inputs.CLOUD_RUN_RAM }}
-
-          # Fetch and display the deployed service URL
+            --memory ${{ inputs.CLOUD_RUN_RAM }} \
+            --set-env-vars "$ENV_VARS"
+      
           DEPLOYED_URL=$(gcloud run services describe ${{ inputs.CLOUD_RUN_SERVICE }} \
             --region ${{ inputs.CLOUD_RUN_REGION }} \
             --format 'value(status.url)')
-
+      
           echo "✅ Cloud Run Service Deployed Successfully!"
           echo "🌍 Deployed URL For Pub: $DEPLOYED_URL"
+      
