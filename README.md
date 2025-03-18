@@ -15,7 +15,14 @@
    ngrok http 7378
    ```
 
-##How to use the Openserv platform to integrate these agents:
+##How to use Openserv platform for the app:
+1. Go and use the project tempalate we have. It has all the agents with the appropriate description.
+2. On the intermediate step before email agent you will get the option to enter the email ids you want to send the marketing content to. In production this will actually be taken from a file or data source instead of manually entering it. Make sure to enter a comma seperated list of strings as shown below.
+![IMG_2114](https://github.com/user-attachments/assets/2a8e7851-3d96-4a2d-949c-0e20368487aa)
+3. You can change the product id which is there in the site_log_agent be entering a product id from the list below. Currently this is pid of our dummy data which is either of P001,P002 or P003. In production this will be taken from the data of the customer's transactions. 
+
+
+##How to use the Openserv platform to integrate these agents: (THESE ARE ONLY IF THE AGENT IS NOT PUBLIC OR PUBLIC TEMPLATE NOT AVAILABLE)
 1. First of all we go the the Add Agent section and we fill in the form. For agent endpoint either use your local setup (as described above) or you can use the web app we have deployed for demo. Repeat the same for all the agents with the agent task description given below.
 ![Screenshot 2025-03-17 at 2 06 03 PM](https://github.com/user-attachments/assets/b71117f5-6c0a-41e9-acad-2c59cf69aec3)
 2. Then go to each agent and click on generate secret key option. Copy the secret key and set it in the .env file as mentioned in the steps above. Repeat this for all the agents.
